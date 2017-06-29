@@ -1,5 +1,27 @@
 page-home {
+  .request-result-container{
+    &.hidden-check-section{
+      ion-grid,
+      ion-col,
+      ion-list{
+        margin: 0;
+        padding: 0;
+        min-height: 0;
+      }
+    }
+  }
+
+  .check-requested-container{
+    background-color: color($colors, tertiary);
+  }
+
+  .current-day-container{
+    background-color: color($colors, secondary);
+  }
+
   .check-requested{
+    margin-top: 20px;
+    display: block;
     margin-left: auto;
     margin-right: auto;
     border-radius: 50%;

@@ -6,26 +6,76 @@
   <!--</ion-navbar>-->
 <!--</ion-header>-->
 
-<ion-content padding>
+<ion-content>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col col-12 >
-        <button ion-button class="check-requested" (click)="checkRequested()">
-          check
-        </button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-12 >
-        <p>{{currentDay()}}</p>
+  <div class="request-result-container" [ngClass]="{'hidden-check-section': !checkedRequest}" >
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 >
+          <p class="note" [ngClass]="{'show-check-section':checkedRequest}" [hidden]="stillNeedResponse">
+            Search for items in your bag;<br>
+            wait…
+          </p>
+          <ion-list [hidden]="!stillNeedResponse">
+            <ion-item *ngFor="let result of stillNeedResults" >
+              <p>{{result.status}}</p>
+              <p>{{result.value}}</p>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
-        The world is your oyster.
-        <p>
-          If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your re coucou.
-        </p>
-        <button ion-button (click)="nextPage();" >test page </button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="check-requested-container" >
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 >
+          <button ion-button class="check-requested" (click)="checkRequested()">
+            {{buttonCheckValue}}
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="current-day-container" >
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 >
+          <p>{{currentDay()}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="list-of-object-of-today-container" >
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 >
+          <ion-list>
+            <ion-item *ngFor="let objectOfToday of listOfObjectOfToday" >
+              <div>{{objectOfToday.name}}</div>
+              <div>{{objectOfToday.category}}</div>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-navbar>
+    <ion-buttons>
+      <ion-grid>
+        <ion-row class="footer-buttons-container" >
+          <button ion-button clear  (click)="goToListPage()" class="footer-buttons">List</button>
+          <button ion-button clear  (click)="goToPackPage()" class="footer-buttons">Pack</button>
+          <button ion-button clear  (click)="goToAttachPage()" class="footer-buttons">Attach</button>
+          <button ion-button clear  (click)="goToSettingsPage()" class="footer-buttons">Settings</button>
+        </ion-row>
+      </ion-grid>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>

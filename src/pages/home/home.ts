@@ -1,9 +1,12 @@
+/// <reference path="../../types/RegisteredObject.d.ts" />
+
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 
 // personals class
 import Utils from "../../global-class/Utils";
+import Categories from "../../global-class/Categories";
 
 @Component({
   selector: 'page-home',
@@ -11,15 +14,30 @@ import Utils from "../../global-class/Utils";
 })
 export class HomePage {
   public date: Date;
+  public listOfObjectOfToday: Array<RegisteredObject>;
+
+  // request-result-container
+  public buttonCheckValue: "check"|"close" = "check";
+  public checkedRequest: boolean = false;
+  public stillNeedResponse: boolean = true;
+  public stillNeedResults: Array<Object> = [];
+  private responseTime: number;
 
   constructor(public navCtrl: NavController, private storage: Storage) {
+
+    // set list of today
+    this.listOfObjectOfToday = [
+      {name: "Sunglasses", category: "clothing"},
+      {name: "Math Book", category: "Books"},
+      {name: "Wallet", category: "Everyday"},
+    ];
 
     // updating data
     const dateForDataToSet: Date = new Date(2017, 6, 5);
 
     //data for user
     const dataToSet: UserData = {
-      categories: ["Books","Clothing","Everyday", "Cosmetics", "Sport stuff", "Work Documents"],
+      categories: Categories.get(),
       calendar: [
         {
           date: dateForDataToSet,
@@ -60,18 +78,48 @@ export class HomePage {
   }
 
   checkRequested(): void{
-    console.log("check requested");
 
-    const myDate: Date = new Date();
-    console.log(myDate.getDay());
-    console.log(Utils.daysWeek.getDayName(myDate.getDay()));
-    //console.log(Utils.daysWeek)
+    if(this.buttonCheckValue === "check"){
+      this.buttonCheckValue = "close";
+
+      // Waiting data from the bluetooth terminal
+      this.stillNeedResponse = false;
+      this.checkedRequest ? this.checkedRequest = false : this.checkedRequest = true;
+
+      // Simulate the response of the terminal
+      this.responseTime = setTimeout(()=>{
+        this.stillNeedResponse = true;
+        this.stillNeedResults = [{status:"Success", value: "Bravo, you have all your items !"}];
+      }, 1000);
+    }
+    else {
+      clearTimeout(this.responseTime);
+      this.buttonCheckValue = "check";
+      this.checkedRequest = false;
+      this.stillNeedResponse = true;
+      this.stillNeedResults = [];
+    }
   }
 
-  nextPage(){
-    this.navCtrl.push('TestPage',{},{
-      animation: "ios-transition"
+  // footer page transition
+  goToListPage(){
+    this.navCtrl.push('ListPage',{},{
+      animation: "md-transition"
     });
   }
-
+  goToPackPage(){
+    this.navCtrl.push('PackPage',{},{
+      animation: "md-transition"
+    });
+  }
+  goToAttachPage(){
+    this.navCtrl.push('AttachPage',{},{
+      animation: "md-transition"
+    });
+  }
+  goToSettingsPage(){
+    this.navCtrl.push('SettingsPage',{},{
+      animation: "md-transition"
+    });
+  }
 }

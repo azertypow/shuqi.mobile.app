@@ -34,13 +34,13 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary: #ff8d10,
-  secondary:  #32db64,
+  primary: #158b7f,
+  secondary: #a8b5ca,
+  tertiary: #c9d8ef,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
 );
-
 
 // App iOS Variables
 // --------------------------------------------------
@@ -86,3 +86,21 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+// General style
+.footer {
+  .footer-buttons-container{
+    text-align: center;
+    display: block;
+    letter-spacing: -0.31em;
+
+    .footer-buttons {
+      min-height: 48px;
+      margin-left: 0;
+      margin-right: 0;
+      display: inline-block;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+}
