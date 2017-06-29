@@ -1,26 +1,38 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+# help for ionic cordova
 
-## How to use this template
+## important
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+For the commands to run correctly, make sure that you are in the root folder of the project.  
+(Folder in which there is, for example, the package.json file)
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
+## Commandes
 
-### With the Ionic CLI:
+build application for deployment  
+The generated file is located in the folder ./platforms/android/build/outputs/apk/ with name android-debug.apk
 
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
+    npm run build-prod
+    
+Begin to edit files.  
+Set up a server to preview the changes in a browser. Opens a page in the browser.
 
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myBlank blank
-```
+    npm run working-server
 
-Then, to run it, cd into `myBlank` and run:
+Same as the previous command,  
+with an ionic page in the browser to view in one or more device simulator at the same time; In the browser.
 
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
+    npm run working-server-devices
+    
+# adb | android
 
-Substitute ios for android if not on a Mac.
+list connected devices
 
+    adb devices
+    
+install apk android-debug.apk generate with "npm run build-prod", located in ./platforms/android/build/outputs/apk/  
+FIRST TIME
+
+    adb install ./platforms/android/build/outputs/apk/android-debug.apk
+    
+SECONDE AND NEXT TIME (The "-r" option replaces the application already installed the first time)
+
+    adb install -r ./platforms/android/build/outputs/apk/android-debug.apk
